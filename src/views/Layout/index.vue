@@ -32,5 +32,15 @@ export default {
     height: 2vh;
     border: 1px solid #e0e0e0;
     text-align: center;
+}
+.el-main{
+    height: 100%;
+}
+.el-footer {
+    background-color: #B3C0D1;
+    color: #333;
+    text-align: center;
+    height:2px;
+    line-height: 2vh;
   }
 </style>

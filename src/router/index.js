@@ -6,19 +6,6 @@ import Layout from "@/views/Layout"
 Vue.use(VueRouter)
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView
-  // },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
   {
     path:'/',
     component:Layout,
@@ -30,7 +17,37 @@ const routes = [
       meta:{
         title:"首页"
       }
-    }]
+    },
+    {
+      path:"questionPage",
+      component:() => import("@/views/QuestionPage"),
+      name:"question",
+      meta:{
+        title:"题目管理"
+      }
+    },{
+      path:"categoryPage",
+      component:() => import("@/views/CategoryPage"),
+      name:"category",
+      meta:{
+        title:"分类管理"
+      }
+    },{
+      path:"typePage",
+      component:() => import("@/views/TypePage"),
+      name:"type",
+      meta:{
+        title:"题型管理"
+      }
+    },{
+      path:"userPage",
+      component:() => import("@/views/UserPage"),
+      name:"user",
+      meta:{
+        title:"用户管理"
+      }
+    },
+  ]
   }
 ]
 

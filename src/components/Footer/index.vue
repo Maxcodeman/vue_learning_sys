@@ -1,7 +1,7 @@
 <template>
-        <div>
-             Copyright @ Max
-        </div>
+          <div class="footer">
+             Copyright @ MaxCodeMan
+          </div>
 </template>
 
 <script>
@@ -12,13 +12,7 @@ export default {
 
 <style>
 .footer{
-    height:20px;
+    padding:20px;
 }
-.el-footer {
-    background-color: #B3C0D1;
-    color: #333;
-    text-align: center;
-    height:2px;
-    line-height: 2vh;
-  }
+
 </style>

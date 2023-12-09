@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        欢迎来到首页!
+        欢迎来到用户管理页面!
     </div>
 </template>
 
