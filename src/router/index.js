@@ -46,8 +46,28 @@ const routes = [
       meta:{
         title:"用户管理"
       }
+    },{
+      path:"personalCenterPage",
+      component:() => import("@/views/PersonalCenterPage"),
+      name:"personal-center",
+      meta:{
+        title:"个人信息"
+      }
+    },{
+      path:"changePasswordPage",
+      component:() => import("@/views/ChangePasswordPage"),
+      name:"change-password",
+      meta:{
+        title:"修改密码"
+      }
     },
   ]
+  },
+
+  {
+    path:'/loginPage',
+    name:'login',
+    component: () => import("@/views/LoginPage")
   }
 ]
 

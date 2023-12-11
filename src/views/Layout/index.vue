@@ -32,6 +32,7 @@ export default {
     height: 2vh;
     border: 1px solid #e0e0e0;
     text-align: center;
+    display: inline-block;
 }
 .el-main{
     height: 100%;
