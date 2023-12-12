@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Layout from "@/views/Layout"
-// import HomeView from '../views/HomeView.vue'
 
 Vue.use(VueRouter)
 
@@ -71,8 +70,32 @@ const routes = [
   }
 ]
 
+
 const router = new VueRouter({
   routes
 })
+
+router.beforeEach((to,from,next)=>{
+  var tokenStr = localStorage.getItem('token')
+  /* 未携带token令牌 */
+  if(!tokenStr){
+    if(to.path=='/loginPage'){
+      return next();
+    } 
+    else{
+      return next('loginPage')
+    } 
+    /* 已携带token令牌 */
+  } else{
+    /* 直接转向首页 */
+    if(to.path=='/loginPage'){
+      return next('homePage');
+    } 
+    else{
+      return next()
+    } 
+  }
+}
+)
 
 export default router

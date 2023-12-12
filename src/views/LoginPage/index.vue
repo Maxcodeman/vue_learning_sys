@@ -9,11 +9,11 @@
           :rules="rules"
           ref="loginForm"
         >
-          <el-form-item label="管理员ID" prop="id">
+          <el-form-item label="管理员ID" prop="adminId">
             <el-input
               style="width: 200px"
               type="text"
-              v-model="loginForm.id"
+              v-model="loginForm.adminId"
               autocomplete="off"
               size="small"
             ></el-input>
@@ -40,15 +40,14 @@
 
 <script>
 export default {
-  name: "login",
   data() {
     return {
       loginForm: {
-        id: "",
+        adminId: "",
         password: "",
       },
       rules: {
-        id: [{ required: true, message: "请输入您的ID", trigger: "blur" }],
+        adminId: [{ required: true, message: "请输入您的ID", trigger: "blur" }],
         password: [
           { required: true, message: "请输入您的密码", trigger: "blur" },
         ],
@@ -62,7 +61,7 @@ export default {
           //valid成功为true，失败为false
           //去后台验证用户名密码，并返回token
           /* 先判断用户类型,再调用对应接口 */
-            this.$http
+            this.$axios
             .post("/login", this.loginForm)
             .then((res) => {
               console.log(res.data);
@@ -70,7 +69,7 @@ export default {
                 localStorage.setItem('token',res.data.data)
                 this.$router.replace("/homePage");
               } else {
-                alert("登录失败，用户名或密码错误！");
+                alert(res.data.msg);
                 return false;
               }
             });
