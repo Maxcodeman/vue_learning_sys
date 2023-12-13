@@ -28,8 +28,11 @@
               size="small"
             ></el-input>
           </el-form-item>
+          <el-form-item prop="remember">
+            保持登录  <el-checkbox v-model="loginForm.remember"></el-checkbox>
+          </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="confirm">登 录</el-button>
+            <el-button type="primary" @click="login">登 录</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -42,6 +45,7 @@
 export default {
   data() {
     return {
+      remember:false,
       loginForm: {
         adminId: "",
         password: "",
@@ -55,21 +59,25 @@ export default {
     };
   },
   methods: {
-    confirm() {
+    login() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           //valid成功为true，失败为false
           //去后台验证用户名密码，并返回token
           /* 先判断用户类型,再调用对应接口 */
             this.$axios
-            .post("/login", this.loginForm)
+            .post("/login?remember="+this.remember, this.loginForm)
             .then((res) => {
               console.log(res.data);
               if (res.data.code == 1) {
                 localStorage.setItem('token',res.data.data)
+                this.$message({
+                message: '登录成功',
+                type: 'success'
+                });
                 this.$router.replace("/homePage");
               } else {
-                alert(res.data.msg);
+                this.$message.error(res.data.msg);
                 return false;
               }
             });

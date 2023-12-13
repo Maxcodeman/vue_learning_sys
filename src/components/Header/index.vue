@@ -39,10 +39,10 @@
       <el-dropdown>
         <el-avatar icon="el-icon-user-solid">
           </el-avatar>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item to="/personalCenterPage"><i class="el-icon-info"></i>个人信息</el-dropdown-item>
-            <el-dropdown-item to="/changePasswordPage"><i class="el-icon-setting"></i>修改密码</el-dropdown-item>
-            <el-dropdown-item><i class="el-icon-switch-button"></i>退出登录</el-dropdown-item>
+          <el-dropdown-menu slot="dropdown" >
+            <el-dropdown-item @click.native="personalCenter"><i class="el-icon-info"></i>个人信息</el-dropdown-item>
+            <el-dropdown-item @click.native="changePassword"><i class="el-icon-setting"></i>修改密码</el-dropdown-item>
+            <el-dropdown-item @click.native="logout"><i class="el-icon-switch-button"></i>退出登录</el-dropdown-item>
           </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -55,7 +55,26 @@ export default {
     return {};
   },
 
-  methods: {},
+  methods: {
+    personalCenter(){
+      this.$router.push("/personalCenterPage");
+    },
+    changePassword(){
+      this.$router.push("/changePasswordPage");
+    },
+    /* 退出登录 */
+    logout(){
+       // 清除本地存储中的 token 令牌
+      localStorage.removeItem('token');
+      //显示退出登录消息
+      this.$message('退出登录');
+      // 使用路由导航到登录页面
+      this.$router.push("/loginPage"); 
+    },
+    clickTest(){
+      console.log('Test Clicked');
+    },
+  },
 
   /* 页面挂载时执行的方法列表 */
   mounted() {},
