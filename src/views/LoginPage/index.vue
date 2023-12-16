@@ -29,7 +29,7 @@
             ></el-input>
           </el-form-item>
           <el-form-item prop="remember">
-            保持登录  <el-checkbox v-model="loginForm.remember"></el-checkbox>
+            保持登录  <el-checkbox v-model="this.remember"></el-checkbox>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="login">登 录</el-button>
@@ -45,7 +45,7 @@
 export default {
   data() {
     return {
-      remember:false,
+      remember:true,
       loginForm: {
         adminId: "",
         password: "",

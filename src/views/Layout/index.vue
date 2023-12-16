@@ -44,4 +44,7 @@ export default {
     height:2px;
     line-height: 2vh;
   }
+.el-aside{
+    background-color: #304156;
+}
 </style>

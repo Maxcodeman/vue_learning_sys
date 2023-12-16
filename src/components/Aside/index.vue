@@ -1,5 +1,5 @@
 <template>
-<div>
+<div >
     <div>
         <div class="sidebar-title">
             <img src="../../assets/logo.png" width="30px" height="30px">
@@ -29,6 +29,13 @@
             ><i class="el-icon-user"></i>用户管理</template
           >
         </el-menu-item>
+
+        <el-menu-item index="4" route="/logPage">
+          <template slot="title"
+            ><i class="el-icon-document"></i>日志查看</template
+          >
+        </el-menu-item>
+
       </el-menu>
 </div>
     </div>
@@ -54,6 +61,6 @@ export default {};
       display: none;
 }
 .el-submenu {
-    max-height: 22vh; /* 设置最大高度为屏幕高度的22% 方便展示*/
+    max-height: 22vh; /*设置最大高度为屏幕高度的22% 方便展示*/
 }
 </style>
