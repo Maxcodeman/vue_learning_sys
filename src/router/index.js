@@ -46,6 +46,13 @@ const routes = [
         title:"用户管理"
       }
     },{
+      path:"logPage",
+      component:() => import("@/views/LogPage"),
+      name:"log",
+      meta:{
+        title:"日志查看"
+      }
+    },{
       path:"personalCenterPage",
       component:() => import("@/views/PersonalCenterPage"),
       name:"personal-center",

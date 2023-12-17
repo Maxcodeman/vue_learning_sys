@@ -32,6 +32,9 @@
         <el-breadcrumb-item to="/changePasswordPage" v-else-if="$route.name == 'change-password'"
           >修改密码</el-breadcrumb-item
         >
+        <el-breadcrumb-item to="/logPage" v-else-if="$route.name == 'log'"
+          >日志查看</el-breadcrumb-item
+        >
       </el-breadcrumb>
     </div>
 

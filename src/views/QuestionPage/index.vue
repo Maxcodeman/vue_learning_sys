@@ -49,7 +49,7 @@
     </div>
 
     <div class="add-button">
-      <el-button type="primary"
+      <el-button type="primary" @click="addDialogVisible=true"
         >新增<i class="el-icon-plus el-icon--right"></i
       ></el-button>
     </div>
@@ -104,7 +104,7 @@
       </el-table-column>
       <el-table-column label="操作" width="120">
           <template slot-scope="scope">
-            <el-button size="small" @click="editById(scope.row)"
+            <el-button size="small" @click="selectById(scope.row)"
               >编辑</el-button
             >
           </template>
@@ -123,7 +123,7 @@
       <i class="el-icon-warning">你确定要删除选中的题目吗?</i>
       <span slot="footer" class="dialog-footer">
         <el-button @click="deleteDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="deleteDialogVisible = false"
+        <el-button type="primary" @click=" () => { deleteDialogVisible = false; deleteByIds(); }"
           >确 定</el-button
         >
       </span>
@@ -132,7 +132,9 @@
     <!-- 编辑题目对话框 -->
     <el-dialog title="编辑题目" :visible.sync="editDialogVisible" width="30%">
       
-      <el-form>
+      <el-form
+      :model="editForm"
+      ref="editForm">
         <el-form-item label="题目编号" prop="id">
                 <el-input v-model="editForm.id" disabled></el-input>
               </el-form-item>
@@ -159,7 +161,42 @@
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="editDialogVisible = false"
+        <el-button type="primary" @click=" () => {editDialogVisible = false;editById(); }"
+          >保存</el-button
+        >
+      </span>
+    </el-dialog>
+
+     <!-- 新增题目对话框 -->
+     <el-dialog title="新增题目" :visible.sync="addDialogVisible" width="30%">
+      
+      <el-form
+      :model="addForm"
+      ref="addForm">
+              <el-form-item label="题型" prop="type">
+                <el-select placeholder="请选择题型" v-model="addForm.type">
+                  <el-option v-for="item in typeOptions" :key="item.typeId" :label="item.typeName" :value="item.typeId"></el-option>
+                </el-select>
+              </el-form-item>
+
+              <el-form-item label="题目分类" prop="category">
+                <el-select placeholder="请选择题目分类" v-model="addForm.category">
+                  <el-option v-for="item in categoryOptions" :key="item.categoryId" :label="item.categoryName" :value="item.categoryId"></el-option>
+                </el-select>
+              </el-form-item>
+
+              <el-form-item label="题目内容" prop="content">
+                <el-input v-model="addForm.content" type="textarea"></el-input>
+              </el-form-item>
+
+              <el-form-item label="题目答案" prop="answer">
+                <el-input v-model="addForm.answer" type="textarea"></el-input>
+              </el-form-item>
+      </el-form>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="addDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click=" () => {addDialogVisible = false;addOne(); }"
           >保存</el-button
         >
       </span>
@@ -193,6 +230,14 @@ export default {
         id:"",
         type:"",
         category:"",
+        content:"",
+        answer:"",
+      },
+      /* 新增表单 */
+      addForm:{
+        type:"",
+        category:"",
+        content:"",
         answer:"",
       },
       multipleSelection: [],
@@ -206,6 +251,8 @@ export default {
       deleteDialogVisible: false,
       /* 编辑对话框的可视性 */
       editDialogVisible:false,
+      /* 添加对话框的可视性 */
+      addDialogVisible:false,
       /* 当前页码和页面尺寸及页数(已设置默认值) */
       pageNo:1,
       pageSize:5,
@@ -258,7 +305,7 @@ export default {
           console.log(err);
         });
     },
-    editById(row){
+    selectById(row){
       this.editDialogVisible=true
       console.log(row.questionId)
       axios.get("/question?id="+row.questionId).then((res) => {
@@ -269,6 +316,23 @@ export default {
             this.editForm.content=res.data.data.questionContent;
             this.editForm.answer=res.data.data.questionAnswer;
             
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    /* 根据id修改 */
+    editById(){
+      console.log(this.editForm.id)
+      axios.put("/question?id="+this.editForm.id+"&type="+this.editForm.type
+      +"&category="+this.editForm.category+"&content="+this.editForm.content
+      +"&answer="+this.editForm.answer).then((res) => {
+          if (res.data.code == 1) {
+            this.$message.success('修改成功');
+            this.pageSelect();
           } else {
             this.$message.error(res.data.msg);
           }
@@ -344,7 +408,36 @@ export default {
     const category = this.categoryOptions.find(option => option.categoryId === categoryId);
     return category ? category.categoryName : ''; // 返回题型名字或空字符串
   },
-
+  
+  /* 根据id集合删除题目 */
+  deleteByIds(){
+    var questionIds = this.multipleSelection.map(item => item.questionId);
+    axios.delete("/question/"+questionIds.join(',')).then((res) => {
+          if (res.data.code == 1) {
+            this.$message.success('删除成功');
+            this.pageSelect();
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  },
+  addOne(){
+      axios.post("/question?type="+this.addForm.type+"&category="+this.addForm.category
+      +"&content="+this.addForm.content+"&answer="+this.addForm.answer).then((res) => {
+          if (res.data.code == 1) {
+            this.$message.success('新增成功');
+            this.pageSelect();
+          } else {
+            this.$message.error(res.data.msg);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  },
   },
   mounted() {
     this.getQuestionType();
