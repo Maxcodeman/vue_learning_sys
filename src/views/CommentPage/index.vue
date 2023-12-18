@@ -1,6 +1,6 @@
 <template>
-    <div class="log-page">
-        日志查看功能暂未开放,敬请期待
+    <div class="comment-page">
+        评论管理功能暂未开放,敬请期待
     </div>
 </template>
 
@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style>
-.log-page{
+.comment-page{
     padding: 300px;
 }
 </style>

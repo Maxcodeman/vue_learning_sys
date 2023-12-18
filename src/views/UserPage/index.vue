@@ -1,6 +1,6 @@
 <template>
-    <div class="main">
-        欢迎来到用户管理页面!
+    <div class="user-page">
+        用户管理功能暂未开放,敬请期待
     </div>
 </template>
 
@@ -10,7 +10,7 @@ export default {
 </script>
 
 <style>
-.main{
+.user-page{
     padding: 300px;
 }
 </style>

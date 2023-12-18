@@ -39,6 +39,20 @@ const routes = [
         title:"题型管理"
       }
     },{
+      path:"notePage",
+      component:() => import("@/views/NotePage"),
+      name:"note",
+      meta:{
+        title:"笔记管理"
+      }
+    },{
+      path:"commentPage",
+      component:() => import("@/views/CommentPage"),
+      name:"comment",
+      meta:{
+        title:"评论管理"
+      }
+    },{
       path:"userPage",
       component:() => import("@/views/UserPage"),
       name:"user",

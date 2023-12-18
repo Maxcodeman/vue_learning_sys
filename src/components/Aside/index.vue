@@ -22,6 +22,8 @@
               <el-menu-item index="2-1" route="/questionPage">题目管理</el-menu-item>
               <el-menu-item index="2-2" route="/categoryPage">分类管理</el-menu-item>
               <el-menu-item index="2-3" route="/typePage">题型管理</el-menu-item>
+              <el-menu-item index="2-4" route="/notePage">笔记管理</el-menu-item>
+              <el-menu-item index="2-5" route="/commentPage">评论管理</el-menu-item>
         </el-submenu>
 
         <el-menu-item index="3" route="/userPage">
@@ -61,6 +63,6 @@ export default {};
       display: none;
 }
 .el-submenu {
-    max-height: 22vh; /*设置最大高度为屏幕高度的22% 方便展示*/
+    max-height: 35vh; /*设置最大高度为屏幕高度的35% 方便展示*/
 }
 </style>

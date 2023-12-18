@@ -35,6 +35,12 @@
         <el-breadcrumb-item to="/logPage" v-else-if="$route.name == 'log'"
           >日志查看</el-breadcrumb-item
         >
+        <el-breadcrumb-item to="/notePage" v-else-if="$route.name == 'note'"
+          >笔记管理</el-breadcrumb-item
+        >
+        <el-breadcrumb-item to="/commentPage" v-else-if="$route.name == 'comment'"
+          >评论管理</el-breadcrumb-item
+        >
       </el-breadcrumb>
     </div>
 
